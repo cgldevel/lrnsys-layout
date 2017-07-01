@@ -10,17 +10,19 @@
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../lrnsys-layout.html">
+    <link rel="import" href="../lrnsys-drawer.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
   </head>
   <body>
     <div class="vertical-section-container centered">
-      <h3>Basic lrnsys-layout demo</h3>
+      <h3>Basic lrnsys-drawer demo</h3>
       <demo-snippet>
         <template>
-          <lrnsys-layout></lrnsys-layout>
+          <lrnsys-drawer text="More tools" icon="network" alt="Click for more tools" header="More tools">
+            All the content of the drawer!
+          </lrnsys-drawer>
         </template>
       </demo-snippet>
     </div>
