@@ -11,6 +11,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
     <link rel="import" href="../lrnsys-drawer.html">
+    <link rel="import" href="../lrnsys-collapselist.html">
 
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
@@ -43,6 +44,23 @@
           <lrnsys-drawer text="btopro" avatar="http://www.elmsln.org/sites/redesign/files/styles/square-profile-portrait/public/headshot.jpg" alt="Bryan O" header="User profile" align="right">
           All my profile data
           </lrnsys-drawer>
+        </template>
+      </demo-snippet>
+    </div>
+    <div class="vertical-section-container centered">
+      <h3>Basic lrnsys-collapselist demo</h3>
+      <demo-snippet>
+        <template>
+          <lrnsys-collapselist items='[{
+  "icon": "accessibility",
+  "label": "Accessibility",
+  "content": "This is my content here"
+}, {
+  "icon": "accessibility",
+  "label": "Another thing",
+  "content": "This is my content as well!"
+}]'>
+          </lrnsys-collapselist>
         </template>
       </demo-snippet>
     </div>
