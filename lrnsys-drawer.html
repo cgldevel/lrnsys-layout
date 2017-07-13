@@ -22,9 +22,6 @@
         display: block;
         --lrnsys-drawer-width: 30%;
       }
-      app-header {
-        z-index: 100;
-      }
       app-drawer {
         --app-drawer-width: var(--lrnsys-drawer-width);
         --app-drawer-content-container: {
@@ -51,33 +48,34 @@
       #close-trigger {
         position: absolute;
         right: 0;
+        top:0;
         padding: 0;
         margin: 0;
         min-width: .1em;
       }
     </style>
-    <paper-button id="flyout-trigger">
+    <paper-button id="flyout-trigger" on-tap="toggleDrawer">
       <template is="dom-if" if="{{avatar}}">
         <paper-avatar src$="{{avatar}}"></paper-avatar>
       </template>
       <template is="dom-if" if="{{icon}}">
         <lrn-icon icon="{{icon}}" alt="{{alt}}"></lrn-icon>
       </template>
-      <template is="dom-if" if="{{alt}}">
-        <paper-tooltip for="flyout-trigger" animation-delay="0">{{alt}}</paper-tooltip>
-      </template>
       <template is="dom-if" if="{{text}}">
         <span class="text-label">{{text}}</span>
       </template>
     </paper-button>
-    <app-header>
-      <app-drawer opened="{{opened}}" align="{{align}}" role="dialog">
-        <h3 class="white-text black drawer-header">{{header}}<paper-button id="close-trigger"><iron-icon icon="close"></iron-icon></paper-button></h3>
+    <template is="dom-if" if="{{alt}}">
+      <paper-tooltip for="flyout-trigger" animation-delay="0">{{alt}}</paper-tooltip>
+    </template>
+    <app-drawer id="flyout-content" opened="{{opened}}" align="{{align}}" role="dialog">
+      <div class="drawer-contents">
+        <h3 class="white-text black drawer-header">{{header}}</h3>
         <content></content>
-      </app-drawer>
-    </app-header>
+        <a tabindex="-1" id="close-trigger"><paper-button on-tap="toggleDrawer"><iron-icon icon="close" class="white-text"></iron-icon></paper-button>
+      </div>
+    </app-drawer>
   </template>
-
   <script>
     Polymer({
       is: 'lrnsys-drawer',
@@ -127,19 +125,9 @@
           type: String
         }
       },
-      /**
-       * Initalize the flyout and ensure it's not open to start
-       * while adding the click event to it.
-       */
-      ready: function() {
+      toggleDrawer: function() {
         let root = this;
-        let opened = this.opened;
-        this.$$('#flyout-trigger').addEventListener('tap', function(e) {
-          root.opened = !root.opened;
-        });
-        this.$$('#close-trigger').addEventListener('tap', function(e) {
-          root.opened = !root.opened;
-        });
+        root.$$("#flyout-content").toggle();
       },
       /**
        * Demo mode.

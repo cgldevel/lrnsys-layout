@@ -32,7 +32,7 @@
       }
       ul li paper-button {
         height: 2em;
-        padding: 1em;
+        padding: .5em;
         margin: 0;
         min-width: .1em;
         -webkit-justify-content: flex-start;
@@ -41,6 +41,10 @@
         width: 100%;
         text-transform: unset;
         border-radius: 0;
+      }
+      ul li paper-button iron-icon,
+      ul li paper-button span {
+        pointer-events: none;
       }
       .collapse-label {
         margin-left: .5em;
@@ -51,11 +55,12 @@
     </style>
     <ul>
     <template is="dom-repeat" items="{{items}}" as="row">
-      <li><paper-button on-click="collapseToggle">
+      <li>
+      <paper-button on-tap="collapseToggle">
         <iron-icon icon="[[row.icon]]"></iron-icon>
         <span class="collapse-label">[[row.label]]</span>
       </paper-button>
-      <iron-collapse>
+      <iron-collapse id="collapse">
         <div class="collapse-content">[[row.content]]</div>
       </iron-collapse>
       </li>
