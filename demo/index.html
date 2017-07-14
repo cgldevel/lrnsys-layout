@@ -88,14 +88,15 @@
       <h3>Using slots</h3>
       <demo-snippet>
         <template>
-          <lrnsys-drawer raised hover-class="yellow red-text text-darken-2" text="btopro" avatar="http://www.elmsln.org/sites/redesign/files/styles/square-profile-portrait/public/headshot.jpg" alt="Bryan O" header="User profile" align="right">
+          <lrnsys-drawer raised hover-class="yellow red-text text-darken-2" text="btopro" avatar="http://www.elmsln.org/sites/redesign/files/styles/square-profile-portrait/public/headshot.jpg" alt="Bryan O" align="right">
             <span slot="button">
-            <h2><iron-icon icon="save"></iron-icon> Save</h2>
-            <span class="course-title-group">
-              <span class="black-text course-title hide-on-med-and-down">Slogan</span>
-              <span class="black-text course-abrv">Name<span class="accessible-grey-text lighten-1 section-label">Title</span></span>
+              <h2><iron-icon icon="save"></iron-icon> Save</h2>
+              <span class="course-title-group">
+                <span class="black-text course-title hide-on-med-and-down">Slogan</span>
+                <span class="black-text course-abrv">Name<span class="accessible-grey-text lighten-1 section-label">Title</span></span>
+              </span>
             </span>
-            </span>
+            <h2 slot="header">This is the heading</h2>
             <lrnsys-collapselist hover-class="blue white-text" items='[{
   "icon": "user",
   "label": "Member details",
@@ -114,11 +115,44 @@
       <h3>Using Dialog</h3>
       <demo-snippet>
         <template>
-          <lrnsys-dialog raised hover-class="black white-text" text="btopro" avatar="http://www.elmsln.org/sites/redesign/files/styles/square-profile-portrait/public/headshot.jpg" alt="Bryan O" header="User profile">
+          <lrnsys-dialog raised hover-class="black white-text" text="btopro" avatar="http://www.elmsln.org/sites/redesign/files/styles/square-profile-portrait/public/headshot.jpg" alt="Bryan O">
+            <h2 slot="header">This is the heading</h2>
 <lrnsys-collapselist items='[{
   "icon": "user",
   "label": "Member details",
   "content": "Member for 54 weeks."
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
+}, {
+  "icon": "accessibility",
+  "label": "Preferences",
+  "content": "Contrast ratio"
 }, {
   "icon": "accessibility",
   "label": "Preferences",
