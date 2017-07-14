@@ -68,7 +68,9 @@
       <paper-tooltip for="dialog-trigger" animation-delay="0">{{alt}}</paper-tooltip>
     </template>
     <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
-      <h3 class="white-text black dialog-header">{{header}}</h3>
+      <template is="dom-if" if="{{header}}">
+        <h3 class="white-text black dialog-header">{{header}}</h3>
+      </template>
       <paper-dialog-scrollable class="dialog-contents">
         <slot></slot>
       </paper-dialog-scrollable>
