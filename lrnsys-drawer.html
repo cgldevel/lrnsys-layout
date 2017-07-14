@@ -54,7 +54,7 @@
         min-width: .1em;
       }
     </style>
-    <paper-button id="flyout-trigger" on-tap="toggleDrawer">
+    <paper-button id="flyout-trigger" on-tap="toggleDrawer" raised="[[raised]]">
       <template is="dom-if" if="{{avatar}}">
         <paper-avatar src$="{{avatar}}"></paper-avatar>
       </template>
@@ -87,6 +87,12 @@
         opened: {
           type: Boolean,
           value: false
+        },
+        /**
+         * If the button should be visually lifted off the UI.
+         */
+        raised: {
+          type: Boolean,
         },
         /**
          * Icon to present for clicking.
@@ -124,20 +130,56 @@
          */
         header: {
           type: String
+        },
+        /**
+         * Classes to add / subtract based on the item being hovered
+         */
+        hoverClass: {
+          type: String,
+        },
+      },
+      ready: function() {
+        let root = this;
+        root.$$('#flyout-trigger').addEventListener('mouseover', function(e) {
+          root.hoverOn(e);
+        });
+        root.$$('#flyout-trigger').addEventListener('mouseout', function(e) {
+          root.hoverOff(e);
+        });
+      },
+      /**
+       * Handle a mouse on event and add the hoverclasses
+       * to the classList array for paper-button.
+       */
+      hoverOn: function(e) {
+        let root = this;
+        if (typeof root.hoverClass !== typeof undefined) {
+          var classes = root.hoverClass.split(' ');
+          classes.forEach(function(item, index) {
+            if (item != '') {
+              root.$$('#flyout-trigger').classList.add(item);
+            }
+          });
+        }
+      },
+      /**
+       * Handle a mouse out event and remove the hoverclasses
+       * from the classList array for paper-button.
+       */
+      hoverOff: function(e) {
+        let root = this;
+        if (typeof root.hoverClass !== typeof undefined) {
+          var classes = root.hoverClass.split(' ');
+          classes.forEach(function(item, index) {
+            if (item != '') {
+              root.$$('#flyout-trigger').classList.remove(item);
+            }
+          });
         }
       },
       toggleDrawer: function() {
         let root = this;
         root.$$("#flyout-content").toggle();
-      },
-      /**
-       * Demo mode.
-       */
-       _demoInit: function() {
-        this.icon = "network";
-        this.align = "right";
-        this.alt = "Open network";
-        this.header = "Open network";
       }
     });
   </script>

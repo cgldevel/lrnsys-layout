@@ -56,7 +56,7 @@
     <ul>
     <template is="dom-repeat" items="{{items}}" as="row">
       <li>
-      <paper-button on-tap="collapseToggle">
+      <paper-button on-tap="collapseToggle" id="collapse-trigger">
         <iron-icon icon="[[row.icon]]"></iron-icon>
         <span class="collapse-label">[[row.label]]</span>
       </paper-button>
@@ -72,10 +72,13 @@
     Polymer({
       is: 'lrnsys-collapselist',
       properties: {
+        /**
+         * Array of items to present with label and content for the list of collapses.
+         */
         items: {
           type: Array,
           notify: true,
-        }
+        },
       },
       /**
        * Toggling collapse on an iron element.

@@ -52,7 +52,7 @@
         min-width: .1em;
       }
     </style>
-    <paper-button id="dialog-trigger" on-tap="toggleDialog">
+    <paper-button id="dialog-trigger" on-tap="toggleDialog" raised="[[raised]]">
       <template is="dom-if" if="{{avatar}}">
         <paper-avatar src$="{{avatar}}"></paper-avatar>
       </template>
@@ -86,6 +86,12 @@
           type: String
         },
         /**
+         * If the button should be visually lifted off the UI.
+         */
+        raised: {
+          type: Boolean,
+        },
+        /**
          * Icon to present for clicking.
          */
         avatar: {
@@ -108,12 +114,57 @@
          */
         header: {
           type: String
+        },
+        /**
+         * Classes to add / subtract based on the item being hovered
+         */
+        hoverClass: {
+          type: String,
+        },
+      },
+      ready: function() {
+        let root = this;
+        root.$$('#dialog-trigger').addEventListener('mouseover', function(e) {
+          root.hoverOn(e);
+        });
+        root.$$('#dialog-trigger').addEventListener('mouseout', function(e) {
+          root.hoverOff(e);
+        });
+      },
+      /**
+       * Handle a mouse on event and add the hoverclasses
+       * to the classList array for paper-button.
+       */
+      hoverOn: function(e) {
+        let root = this;
+        if (typeof root.hoverClass !== typeof undefined) {
+          var classes = root.hoverClass.split(' ');
+          classes.forEach(function(item, index) {
+            if (item != '') {
+              root.$$('#dialog-trigger').classList.add(item);
+            }
+          });
+        }
+      },
+      /**
+       * Handle a mouse out event and remove the hoverclasses
+       * from the classList array for paper-button.
+       */
+      hoverOff: function(e) {
+        let root = this;
+        if (typeof root.hoverClass !== typeof undefined) {
+          var classes = root.hoverClass.split(' ');
+          classes.forEach(function(item, index) {
+            if (item != '') {
+              root.$$('#dialog-trigger').classList.remove(item);
+            }
+          });
         }
       },
       toggleDialog: function() {
         let root = this;
         root.$$("#dialog").toggle();
-      }
+      },
     });
   </script>
 </dom-module>
