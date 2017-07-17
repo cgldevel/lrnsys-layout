@@ -130,6 +130,14 @@
         hoverClass: {
           type: String,
         },
+        /**
+         * Support for body-appending which is a hack for stacking context
+         * correction but breaks scoped styles / shadowDOM
+         */
+        bodyAppend: {
+          type: Boolean,
+          value: false
+        },
       },
       ready: function() {
         let root = this;
@@ -170,8 +178,15 @@
           });
         }
       },
+      /**
+       * Toggle the drawer to open / close.
+       */
       toggleDialog: function() {
         let root = this;
+        // support for appending to the light document
+        if (root.bodyAppend) {
+          document.body.appendChild(root.$$("#dialog"));
+        }
         root.$$("#dialog").toggle();
       },
     });

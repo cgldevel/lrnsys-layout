@@ -30,9 +30,6 @@
           margin-top: 8em;
         }
       }
-      .drawer-contents {
-
-      }
       .drawer-header {
         width: 100%;
         padding: 0 0 .5em 0;
@@ -55,7 +52,7 @@
         position: absolute;
         right: 0;
         top: 0;
-        padding: 0.5rem;
+        padding: .5em .5em 0 0;
         margin: 0;
         min-width: .1em;
         text-transform: none;
@@ -151,6 +148,14 @@
         hoverClass: {
           type: String,
         },
+        /**
+         * Support for body-appending which is a hack for stacking context
+         * correction but breaks scoped styles / shadowDOM
+         */
+        bodyAppend: {
+          type: Boolean,
+          value: false
+        },
       },
       ready: function() {
         let root = this;
@@ -191,10 +196,17 @@
           });
         }
       },
+      /**
+       * Toggle the drawer to open / close.
+       */
       toggleDrawer: function() {
         let root = this;
+        // support for appending to the light document
+        if (root.bodyAppend) {
+          document.body.appendChild(root.$$("#flyout-content"));
+        }
         root.$$("#flyout-content").toggle();
-      }
+      },
     });
   </script>
 </dom-module>
