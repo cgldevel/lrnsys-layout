@@ -58,7 +58,7 @@
         text-transform: none;
       }
     </style>
-    <paper-button id="flyout-trigger" on-tap="toggleDrawer" raised="[[raised]]">
+    <paper-button class$="[[class]]" id="flyout-trigger" on-tap="toggleDrawer" raised="[[raised]]">
       <template is="dom-if" if="{{avatar}}">
         <paper-avatar src$="{{avatar}}"></paper-avatar>
       </template>
@@ -91,6 +91,12 @@
   <script>
     Polymer({
       is: 'lrnsys-drawer',
+      listeners: {
+        'mousedown': 'tapEventOn',
+        'mouseover': 'tapEventOn',
+        'mouseout': 'tapEventOff',
+        'flyout-trigger.focused-changed': 'focusToggle',
+      },
       properties: {
         /**
          * State for if it is currently open.
@@ -156,21 +162,19 @@
           type: Boolean,
           value: false
         },
-      },
-      ready: function() {
-        let root = this;
-        root.$$('#flyout-trigger').addEventListener('mouseover', function(e) {
-          root.hoverOn(e);
-        });
-        root.$$('#flyout-trigger').addEventListener('mouseout', function(e) {
-          root.hoverOff(e);
-        });
+        /**
+         * Tracks if focus state is applied
+         */
+        focusState: {
+          type: Boolean,
+          value: false,
+        }
       },
       /**
        * Handle a mouse on event and add the hoverclasses
        * to the classList array for paper-button.
        */
-      hoverOn: function(e) {
+      tapEventOn: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
@@ -185,7 +189,7 @@
        * Handle a mouse out event and remove the hoverclasses
        * from the classList array for paper-button.
        */
-      hoverOff: function(e) {
+      tapEventOff: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
@@ -206,6 +210,30 @@
           document.body.appendChild(root.$$("#flyout-content"));
         }
         root.$$("#flyout-content").toggle();
+      },
+      /**
+       * Handle toggle for mouse class and manage classList array for paper-button.
+       */
+      focusToggle: function(e) {
+        let root = this;
+        this.fire('focus-changed', {focus: root.focusState});
+        // see if it has hover classes
+        if (typeof root.hoverClass !== typeof undefined) {
+          // break class into array
+          var classes = root.hoverClass.split(' ');
+          // run through each and add or remove classes
+          classes.forEach(function(item, index) {
+            if (item != '') {
+              if (root.focusState) {
+                root.$$('#flyout-trigger').classList.add(item);
+              }
+              else {
+                root.$$('#flyout-trigger').classList.remove(item);
+              }
+            }
+          });
+        }
+        root.focusState = !root.focusState;
       },
     });
   </script>

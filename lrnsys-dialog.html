@@ -19,7 +19,7 @@
   <template>
     <style include="materializecss-styles-colors">
       :host {
-        display: block;
+        display: inline-block;
       }
       paper-dialog {
         position: fixed;
@@ -56,7 +56,7 @@
         min-width: .1em;
       }
     </style>
-    <paper-button id="dialog-trigger" on-tap="toggleDialog" raised="[[raised]]">
+    <paper-button class$="[[class]]" id="dialog-trigger" on-tap="toggleDialog" raised="[[raised]]">
       <template is="dom-if" if="{{avatar}}">
         <paper-avatar src$="{{avatar}}"></paper-avatar>
       </template>
@@ -87,6 +87,12 @@
   <script>
     Polymer({
       is: 'lrnsys-dialog',
+      listeners: {
+        'mousedown': 'tapEventOn',
+        'mouseover': 'tapEventOn',
+        'mouseout': 'tapEventOff',
+        'dialog-trigger.focused-changed': 'focusToggle',
+      },
       properties: {
         /**
          * Icon to present for clicking.
@@ -138,21 +144,19 @@
           type: Boolean,
           value: false
         },
-      },
-      ready: function() {
-        let root = this;
-        root.$$('#dialog-trigger').addEventListener('mouseover', function(e) {
-          root.hoverOn(e);
-        });
-        root.$$('#dialog-trigger').addEventListener('mouseout', function(e) {
-          root.hoverOff(e);
-        });
+        /**
+         * Tracks if focus state is applied
+         */
+        focusState: {
+          type: Boolean,
+          value: false,
+        }
       },
       /**
-       * Handle a mouse on event and add the hoverclasses
+       * Handle a focus/tap event and add the hoverclasses
        * to the classList array for paper-button.
        */
-      hoverOn: function(e) {
+      tapEventOn: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
@@ -167,7 +171,7 @@
        * Handle a mouse out event and remove the hoverclasses
        * from the classList array for paper-button.
        */
-      hoverOff: function(e) {
+      tapEventOff: function(e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
@@ -188,6 +192,30 @@
           document.body.appendChild(root.$$("#dialog"));
         }
         root.$$("#dialog").toggle();
+      },
+      /**
+       * Handle toggle for mouse class and manage classList array for paper-button.
+       */
+      focusToggle: function(e) {
+        let root = this;
+        this.fire('focus-changed', {focus: root.focusState});
+        // see if it has hover classes
+        if (typeof root.hoverClass !== typeof undefined) {
+          // break class into array
+          var classes = root.hoverClass.split(' ');
+          // run through each and add or remove classes
+          classes.forEach(function(item, index) {
+            if (item != '') {
+              if (root.focusState) {
+                root.$$('#dialog-trigger').classList.add(item);
+              }
+              else {
+                root.$$('#dialog-trigger').classList.remove(item);
+              }
+            }
+          });
+        }
+        root.focusState = !root.focusState;
       },
     });
   </script>
