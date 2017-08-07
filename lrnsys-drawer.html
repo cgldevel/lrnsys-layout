@@ -58,7 +58,7 @@
         text-transform: none;
       }
     </style>
-    <paper-button class$="[[class]]" id="flyout-trigger" on-tap="toggleDrawer" raised="[[raised]]">
+    <paper-button class$="[[class]]" id="flyout-trigger" on-tap="toggleDrawer" raised="[[raised]]" disabled$="[[disabled]]">
       <template is="dom-if" if="{{avatar}}">
         <paper-avatar src$="{{avatar}}"></paper-avatar>
       </template>
@@ -147,6 +147,13 @@
          */
         header: {
           type: String
+        },
+        /**
+         * Disabled state.
+         */
+        disabled: {
+          type: Boolean,
+          value: false,
         },
         /**
          * Classes to add / subtract based on the item being hovered
