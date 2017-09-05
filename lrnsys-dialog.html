@@ -56,26 +56,26 @@
         min-width: .1em;
       }
     </style>
-    <paper-button class$="[[class]]" id="dialog-trigger" on-tap="toggleDialog" raised="[[raised]]" disabled$="[[disabled]]">
-      <template is="dom-if" if="{{avatar}}">
-        <paper-avatar src$="{{avatar}}"></paper-avatar>
+    <paper-button class$="[[class]]" id="dialog-trigger" on-tap="toggleDialog" raised="[[raised]]" disabled$="[[disabled]]" title="[[alt]]">
+      <template is="dom-if" if="[[avatar]]">
+        <paper-avatar src$="[[avatar]]"></paper-avatar>
       </template>
-      <template is="dom-if" if="{{icon}}">
-        <lrn-icon icon="{{icon}}" alt="{{alt}}"></lrn-icon>
+      <template is="dom-if" if="[[icon]]">
+        <lrn-icon icon="[[icon]]"></lrn-icon>
       </template>
-      <template is="dom-if" if="{{text}}">
-        <span class="text-label">{{text}}</span>
+      <template is="dom-if" if="[[text]]">
+        <span class="text-label">[[text]]</span>
       </template>
       <slot name="button"></slot>
     </paper-button>
-    <template is="dom-if" if="{{alt}}">
-      <paper-tooltip for="dialog-trigger" animation-delay="0">{{alt}}</paper-tooltip>
+    <template is="dom-if" if="[[alt]]">
+      <paper-tooltip for="dialog-trigger" animation-delay="0">[[alt]]</paper-tooltip>
     </template>
     <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <div class="dialog-header">
         <slot name="header"></slot>
-        <template is="dom-if" if="{{header}}">
-          <h3 class="white-text black dialog-heading">{{header}}</h3>
+        <template is="dom-if" if="[[header]]">
+          <h3 class="white-text black dialog-heading">[[header]]</h3>
         </template>
       </div>
       <paper-dialog-scrollable class="dialog-contents">
@@ -122,7 +122,8 @@
          * Alt / hover text for this link
          */
         alt: {
-          type: String
+          type: String,
+          reflectToAttribute: true,
         },
         /**
          * Header for the dialog

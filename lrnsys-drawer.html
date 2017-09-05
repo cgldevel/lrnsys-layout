@@ -58,22 +58,22 @@
         text-transform: none;
       }
     </style>
-    <paper-button class$="[[class]]" id="flyout-trigger" on-tap="toggleDrawer" raised="[[raised]]" disabled$="[[disabled]]">
-      <template is="dom-if" if="{{avatar}}">
-        <paper-avatar src$="{{avatar}}"></paper-avatar>
+    <paper-button class$="[[class]]" id="flyout-trigger" on-tap="toggleDrawer" raised="[[raised]]" disabled$="[[disabled]]" title="[[alt]]">
+      <template is="dom-if" if="[[avatar]]">
+        <paper-avatar src$="[[avatar]]"></paper-avatar>
       </template>
-      <template is="dom-if" if="{{icon}}">
-        <lrn-icon icon="{{icon}}" alt="{{alt}}"></lrn-icon>
+      <template is="dom-if" if="[[icon]]">
+        <lrn-icon icon="[[icon]]"></lrn-icon>
       </template>
-      <template is="dom-if" if="{{text}}">
-        <span class="text-label">{{text}}</span>
+      <template is="dom-if" if="[[text]]">
+        <span class="text-label">[[text]]</span>
       </template>
       <slot name="button"></slot>
     </paper-button>
-    <template is="dom-if" if="{{alt}}">
-      <paper-tooltip for="flyout-trigger" animation-delay="0">{{alt}}</paper-tooltip>
+    <template is="dom-if" if="[[alt]]">
+      <paper-tooltip for="flyout-trigger" animation-delay="0">[[alt]]</paper-tooltip>
     </template>
-    <app-drawer id="flyout-content" opened="{{opened}}" align="{{align}}" role="dialog">
+    <app-drawer id="flyoutcontent" opened="[[opened]]" align="[[align" role="dialog">
       <div class="drawer-contents">
         <div class="drawer-header">
           <slot name="header"></slot>
@@ -140,7 +140,8 @@
          * Alt / hover text for this link
          */
         alt: {
-          type: String
+          type: String,
+          reflectToAttribute: true,
         },
         /**
          * Header for the drawer
@@ -214,9 +215,9 @@
         let root = this;
         // support for appending to the light document
         if (root.bodyAppend) {
-          document.body.appendChild(root.$$("#flyout-content"));
+          document.body.appendChild(root.$.flyoutcontent);
         }
-        root.$$("#flyout-content").toggle();
+        root.$.flyoutcontent.toggle();
       },
       /**
        * Handle toggle for mouse class and manage classList array for paper-button.
