@@ -78,7 +78,7 @@
           <h3 class="white-text black dialog-heading">[[header]]</h3>
         </template>
       </div>
-      <paper-dialog-scrollable class="dialog-contents">
+      <paper-dialog-scrollable class="dialog-contents" id="dialogcontent">
         <slot></slot>
       </paper-dialog-scrollable>
       <paper-button id="close-button" dialog-dismiss class="black white-text"><iron-icon icon="close"></iron-icon>Close</paper-button>
@@ -153,6 +153,13 @@
           value: false
         },
         /**
+         * Support for dynamic loading of iron-image elements that are in the content slot.
+         */
+        dynamicImages: {
+          type: Boolean,
+          value: false
+        },
+        /**
          * Tracks if focus state is applied
          */
         focusState: {
@@ -195,11 +202,19 @@
        */
       toggleDialog: function() {
         let root = this;
+        // support for loading iron-images dynamically
+        if (root.dynamicImages) {
+          var images = root.$.dialogcontent.getElementsByTagName("IRON-IMAGE");
+          // make sure these are
+          for (var i=0; i<images.length; i++) {
+            images[i].preventLoad = false;
+          }
+        }
         // support for appending to the light document
         if (root.bodyAppend) {
-          document.body.appendChild(root.$$("#dialog"));
+          document.body.appendChild(root.$.dialog);
         }
-        root.$$("#dialog").toggle();
+        root.$.dialog.toggle();
       },
       /**
        * Handle toggle for mouse class and manage classList array for paper-button.
