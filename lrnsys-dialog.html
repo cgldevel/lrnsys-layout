@@ -71,7 +71,7 @@
     <template is="dom-if" if="[[alt]]">
       <paper-tooltip for="dialog-trigger" animation-delay="0">[[alt]]</paper-tooltip>
     </template>
-    <paper-dialog id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+    <paper-dialog modal="[[modal]]" id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <div class="dialog-header">
         <slot name="header"></slot>
         <template is="dom-if" if="[[header]]">
@@ -135,6 +135,13 @@
          * Disabled state.
          */
         disabled: {
+          type: Boolean,
+          value: false,
+        },
+        /**
+         * Modal state for pop over.
+         */
+        modal: {
           type: Boolean,
           value: false,
         },
