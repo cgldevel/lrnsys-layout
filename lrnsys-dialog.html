@@ -9,6 +9,8 @@
 <link rel="import" href="../neon-animation/neon-animations.html">
 <link rel="import" href="../materializecss-styles/colors.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="lrnsys-dialog-toolbar.html">
+
 <!--
 `lrnsys-dialog`
 
@@ -72,6 +74,9 @@
       <paper-tooltip for="dialog-trigger" animation-delay="0">[[alt]]</paper-tooltip>
     </template>
     <paper-dialog modal="[[modal]]" id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <lrnsys-dialog-toolbar on-button-clicked="_toolbarButtonClickedHandler">
+        <slot name="toolbar"></slot>
+      </lrnsys-dialog-toolbar>
       <div class="dialog-header">
         <slot name="header"></slot>
         <template is="dom-if" if="[[header]]">
@@ -92,6 +97,7 @@
         'mouseover': 'tapEventOn',
         'mouseout': 'tapEventOff',
         'dialog-trigger.focused-changed': 'focusToggle',
+        'killswitch': '_killswitchHandler'
       },
       properties: {
         /**
@@ -247,6 +253,12 @@
         }
         root.focusState = !root.focusState;
       },
+      _toolbarButtonClickedHandler: function (e) {
+        if (e.detail.id === 'close') {
+          this.toggleDialog();
+        }
+        this.fire('toolbar-button-clicked', e.detail);
+      }
     });
   </script>
 </dom-module>

@@ -1,0 +1,40 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="lrnsys-dialog-toolbar-button.html">
+
+
+<dom-module id="lrnsys-dialog-toolbar">
+    <template>
+        <style>
+             :host {
+                display: block;
+                --app-toolbar-background-color: whitesmoke;
+                --app-totobar-border-bottom-color: solid 5px gray;
+            }
+
+            app-toolbar {
+                background-color: var(--app-toolbar-background-color);
+                border-bottom: var(--app-totobar-border-bottom-color);
+            }
+        </style>
+        <app-toolbar>
+            <slot> 
+            </slot>
+            <div main-title></div>
+            <lrnsys-dialog-toolbar-button icon="close" id="close">close</lrnsys-dialog-toolbar-button>
+        </app-toolbar>
+    </template>
+    <script>
+        Polymer({
+            is: 'lrnsys-dialog-toolbar',
+
+            listeners: {
+                'clicked': '_clickedHandler'
+            },
+
+            _clickedHandler: function (e) {
+                this.fire('button-clicked', e.detail);
+            }
+        });
+    </script>
+</dom-module>

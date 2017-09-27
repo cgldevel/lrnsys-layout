@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+
+<dom-module id="lrnsys-dialog-toolbar-button">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <paper-icon-button raised icon="[[icon]]" on-click="clicked" id="[[id]]">[[title]]</paper-icon-button>
+    </template>
+    <script>
+        Polymer({
+            is: 'lrnsys-dialog-toolbar-button',
+            
+            properties: {
+                title: {
+                    type: String,
+                },
+                icon: {
+                    type: String,
+                },
+                id: {
+                    type: String,
+                }
+            },
+            clicked: function (e) {
+                var normalizedEvent = Polymer.dom(e);
+                var localTarget = normalizedEvent.localTarget;
+                var id = localTarget.getAttribute('id');
+                this.fire('clicked', { id: id });
+            }
+        });
+    </script>
+</dom-module>
