@@ -9,37 +9,47 @@
              :host {
                 display: block;
                 --app-toolbar-primary-color: whitesmoke;
+                --app-toolbar-primary-height: 40px;
+                --app-toolbar-secondary-height: 50px;
                 --app-toolbar-secondary-color: rgba(0, 0, 0, 0.7);
-                overflow: hidden;
+                position: relative;
+                margin: 0;
+                padding: 0;
             }
 
             app-toolbar#primary {
                 background-color: var(--app-toolbar-primary-color);
                 z-index: 10;
                 position: relative;
-                height: 10%;
+                height: var(--app-toolbar-primary-height);
             }
 
             app-toolbar#secondary {
                 background-color: var(--app-toolbar-secondary-color);
                 z-index: 5;
-                position: relative;
+                position: absolute;
+                width: 100%;
                 transform: translateY(-100%);
                 transition: all 0.3s ease-in;
-                height: 50px;
+                height: var(--app-toolbar-primary-height);
                 color: #fff;
                 display: flex;
                 justify-content: center;
+                padding: 0;
+                overflow: hidden;
             }
 
              :host[secondary-visible] #secondary {
                 transform: translateY(0);
-                height: 60px;
+                height: var(--app-toolbar-secondary-height);
             }
 
             .secondary-buttons {
+                display: flex;
+            }
+
+            .secondary-buttons ::shadow * {
                 display: inline-flex;
-                padding-top: 5px;
             }
         </style>
         <app-toolbar id="primary">
@@ -49,12 +59,8 @@
         </app-toolbar>
         <app-toolbar id="secondary">
             <div class="secondary-buttons">
-                <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
-                <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
-                <lrnsys-dialog-toolbar-button icon="refresh" id="refresh"></lrnsys-dialog-toolbar-button>
-                <lrnsys-dialog-toolbar-button icon="save" id="save"></lrnsys-dialog-toolbar-button>
+                <slot name="secondary"></slot>
             </div>
-            <slot name="secondary"></slot>
         </app-toolbar>
     </template>
     <script>

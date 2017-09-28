@@ -31,6 +31,9 @@
         left: 5%;
         overflow: auto;
       }
+      paper-dialog > *:first-child {
+        margin-top: 0;
+      }
       .dialog-header {
         width: 100%;
         padding: 0 0 .5em 0;
@@ -75,7 +78,12 @@
     </template>
     <paper-dialog modal="[[modal]]" id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
       <lrnsys-dialog-toolbar on-button-clicked="_toolbarButtonClickedHandler">
-        <slot name="toolbar"></slot>
+        <span slot="primary">
+            <slot name="toolbar-primary"></slot>
+        </span>
+        <span slot="secondary">
+            <slot name="toolbar-secondary"></slot>
+        </span>
       </lrnsys-dialog-toolbar>
       <div class="dialog-header">
         <slot name="header"></slot>
@@ -86,7 +94,6 @@
       <paper-dialog-scrollable class="dialog-contents" id="dialogcontent">
         <slot></slot>
       </paper-dialog-scrollable>
-      <paper-button id="close-button" dialog-dismiss class="black white-text"><iron-icon icon="close"></iron-icon>Close</paper-button>
     </paper-dialog>
   </template>
   <script>
@@ -97,7 +104,6 @@
         'mouseover': 'tapEventOn',
         'mouseout': 'tapEventOff',
         'dialog-trigger.focused-changed': 'focusToggle',
-        'killswitch': '_killswitchHandler'
       },
       properties: {
         /**

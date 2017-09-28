@@ -133,13 +133,17 @@
     <demo-snippet>
       <template>
         <lrnsys-dialog-toolbar id="toolbar">
-            <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in">Zoom In</lrnsys-dialog-toolbar-button>
-            <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out">Zoom Out</lrnsys-dialog-toolbar-button>
+          <span slot="secondary">
+            <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button icon="refresh" id="refresh"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button icon="save" id="save"></lrnsys-dialog-toolbar-button>
+          </span>
         </lrnsys-dialog-toolbar>
-          <script>
-            var toolbar = document.querySelector('#toolbar');
-            toolbar.setAttribute('secondary-visible', true);
-          </script>
+        <script>
+          var toolbar = document.querySelector('#toolbar');
+          toolbar.setAttribute('secondary-visible', true);
+        </script>
       </template>
     </demo-snippet>
   </div>
@@ -149,10 +153,13 @@
       <template>
         <lrnsys-dialog id="dialog" class="circle" body-append raised hover-class="black white-text" text="btopro" avatar="http://www.elmsln.org/sites/redesign/files/styles/square-profile-portrait/public/headshot.jpg"
           alt="Bryan O">
-          <span class="toolbar-buttons" slot="toolbar">
-                <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in">Zoom In</lrnsys-dialog-toolbar-button>
-                <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out">Zoom Out</lrnsys-dialog-toolbar-button>
-            </span>
+          <span slot="toolbar-secondary">
+            <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button icon="refresh" id="refresh"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button icon="save" id="save"></lrnsys-dialog-toolbar-button>
+          </span>
+          <span class="toolbar-buttons" slot="toolbar"></span>
           <h2 slot="header">This is the heading</h2>
           <lrnsys-collapselist items='[
               {
@@ -198,7 +205,8 @@
               }]'>
           </lrnsys-collapselist>
           </lrnsys-drawer>
-          <script>
+        </lrnsys-dialog>
+        <script>
             const dialogContainer = document.querySelector('#dialog');
             const dialog = dialogContainer.querySelector('paper-dialog');
             const toolbar = dialog.querySelector('lrnsys-dialog-toolbar');
