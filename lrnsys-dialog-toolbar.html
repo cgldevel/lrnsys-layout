@@ -9,24 +9,59 @@
              :host {
                 display: block;
                 --app-toolbar-background-color: whitesmoke;
-                --app-totobar-border-bottom-color: solid 5px gray;
             }
 
-            app-toolbar {
+            app-toolbar#primary {
                 background-color: var(--app-toolbar-background-color);
-                border-bottom: var(--app-totobar-border-bottom-color);
+                z-index: 10;
+                position: relative;
+                height: 10%
+            }
+
+            app-toolbar#secondary {
+                background-color: darkgray;
+                z-index: 5;
+                position: relative;
+                height: 10%;
+                padding: 10px;
+                transform: translateY(-100%);
+                transition: all 0.3s ease-in; 
+            }
+
+             :host[secondary-visible] #secondary {
+                display: block;
+                transform: translateY(0);
+            }
+
+             :host ::shadow .toolbar-buttons {
+                display: flex;
             }
         </style>
-        <app-toolbar>
-            <slot> 
-            </slot>
+        <app-toolbar id="primary">
+            <slot name="primary"></slot>
             <div main-title></div>
             <lrnsys-dialog-toolbar-button icon="close" id="close">close</lrnsys-dialog-toolbar-button>
+        </app-toolbar>
+        <app-toolbar id="secondary">
+            this is the secondary
+            <slot name="secondary">
+            </slot>
         </app-toolbar>
     </template>
     <script>
         Polymer({
             is: 'lrnsys-dialog-toolbar',
+
+            properties: {
+                /**
+                * The state of the secondary menu.
+                */
+                secondaryVisible: {
+                    type: Boolean,
+                    value: false,
+                    reflectToAttribute: true,
+                },
+            },
 
             listeners: {
                 'clicked': '_clickedHandler'
