@@ -8,44 +8,53 @@
         <style>
              :host {
                 display: block;
-                --app-toolbar-background-color: whitesmoke;
+                --app-toolbar-primary-color: whitesmoke;
+                --app-toolbar-secondary-color: rgba(0, 0, 0, 0.7);
+                overflow: hidden;
             }
 
             app-toolbar#primary {
-                background-color: var(--app-toolbar-background-color);
+                background-color: var(--app-toolbar-primary-color);
                 z-index: 10;
                 position: relative;
-                height: 10%
+                height: 10%;
             }
 
             app-toolbar#secondary {
-                background-color: darkgray;
+                background-color: var(--app-toolbar-secondary-color);
                 z-index: 5;
                 position: relative;
-                height: 10%;
-                padding: 10px;
                 transform: translateY(-100%);
-                transition: all 0.3s ease-in; 
+                transition: all 0.3s ease-in;
+                height: 50px;
+                color: #fff;
+                display: flex;
+                justify-content: center;
             }
 
              :host[secondary-visible] #secondary {
-                display: block;
                 transform: translateY(0);
+                height: 60px;
             }
 
-             :host ::shadow .toolbar-buttons {
-                display: flex;
+            .secondary-buttons {
+                display: inline-flex;
+                padding-top: 5px;
             }
         </style>
         <app-toolbar id="primary">
             <slot name="primary"></slot>
             <div main-title></div>
-            <lrnsys-dialog-toolbar-button icon="close" id="close">close</lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button icon="close" id="close"></lrnsys-dialog-toolbar-button>
         </app-toolbar>
         <app-toolbar id="secondary">
-            this is the secondary
-            <slot name="secondary">
-            </slot>
+            <div class="secondary-buttons">
+                <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
+                <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
+                <lrnsys-dialog-toolbar-button icon="refresh" id="refresh"></lrnsys-dialog-toolbar-button>
+                <lrnsys-dialog-toolbar-button icon="save" id="save"></lrnsys-dialog-toolbar-button>
+            </div>
+            <slot name="secondary"></slot>
         </app-toolbar>
     </template>
     <script>
