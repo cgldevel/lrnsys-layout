@@ -134,10 +134,10 @@
       <template>
         <lrnsys-dialog-toolbar id="toolbar">
           <span slot="secondary">
-            <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
-            <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
-            <lrnsys-dialog-toolbar-button icon="refresh" id="refresh"></lrnsys-dialog-toolbar-button>
-            <lrnsys-dialog-toolbar-button icon="save" id="save"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Zoom In" icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Zoom Out" icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Restore" icon="refresh" id="restore"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Download" icon="save" id="download"></lrnsys-dialog-toolbar-button>
           </span>
         </lrnsys-dialog-toolbar>
         <script>
@@ -154,10 +154,10 @@
         <lrnsys-dialog id="dialog" class="circle" body-append raised hover-class="black white-text" text="btopro" avatar="http://www.elmsln.org/sites/redesign/files/styles/square-profile-portrait/public/headshot.jpg"
           alt="Bryan O">
           <span slot="toolbar-secondary">
-            <lrnsys-dialog-toolbar-button icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
-            <lrnsys-dialog-toolbar-button icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
-            <lrnsys-dialog-toolbar-button icon="refresh" id="refresh"></lrnsys-dialog-toolbar-button>
-            <lrnsys-dialog-toolbar-button icon="save" id="save"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Zoom In" icon="zoom-in" id="zoom-in"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Zoom Out" icon="zoom-out" id="zoom-out"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Restore" icon="refresh" id="restore"></lrnsys-dialog-toolbar-button>
+            <lrnsys-dialog-toolbar-button title="Download" icon="save" id="download"></lrnsys-dialog-toolbar-button>
           </span>
           <span class="toolbar-buttons" slot="toolbar"></span>
           <h2 slot="header">This is the heading</h2>
@@ -206,17 +206,7 @@
           </lrnsys-collapselist>
           </lrnsys-drawer>
         </lrnsys-dialog>
-        <script>
-            const dialogContainer = document.querySelector('#dialog');
-            const dialog = dialogContainer.querySelector('paper-dialog');
-            const toolbar = dialog.querySelector('lrnsys-dialog-toolbar');
-            dialog.addEventListener('mouseover', (e) => {
-              toolbar.setAttribute('secondary-visible', true);
-            });
-            dialog.addEventListener('mouseout', (e) => {
-              toolbar.removeAttribute('secondary-visible');
-            })
-          </script>
+
       </template>
     </demo-snippet>
   </div>

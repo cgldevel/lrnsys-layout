@@ -17,6 +17,7 @@
                 padding: 0;
             }
 
+
             app-toolbar#primary {
                 background-color: var(--app-toolbar-primary-color);
                 z-index: 10;
@@ -36,7 +37,6 @@
                 display: flex;
                 justify-content: center;
                 padding: 0;
-                overflow: hidden;
             }
 
              :host[secondary-visible] #secondary {
@@ -59,7 +59,7 @@
         </app-toolbar>
         <app-toolbar id="secondary">
             <div class="secondary-buttons">
-                <slot name="secondary"></slot>
+                <slot name="secondary" id="secondary-slot"></slot>
             </div>
         </app-toolbar>
     </template>
@@ -76,6 +76,10 @@
                     value: false,
                     reflectToAttribute: true,
                 },
+                secondaryHasChildren: {
+                    type: Boolean,
+                    value: false
+                }
             },
 
             listeners: {
@@ -84,6 +88,13 @@
 
             _clickedHandler: function (e) {
                 this.fire('button-clicked', e.detail);
+            },
+            attached: function() {
+                this._observer = Polymer.dom(this).observeNodes(this._onNodesChange);
+            },
+            _onNodesChange: function() {
+                this.count = this.$$('#secondary-slot').children.length;
+                console.log(this.count);
             }
         });
     </script>

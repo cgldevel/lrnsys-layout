@@ -20,9 +20,10 @@
 <dom-module id="lrnsys-dialog">
   <template>
     <style include="materializecss-styles-colors">
-      :host {
+       :host {
         display: inline-block;
       }
+
       paper-dialog {
         position: fixed;
         top: 5%;
@@ -31,9 +32,11 @@
         left: 5%;
         overflow: auto;
       }
-      paper-dialog > *:first-child {
+
+      paper-dialog>*:first-child {
         margin-top: 0;
       }
+
       .dialog-header {
         width: 100%;
         padding: 0 0 .5em 0;
@@ -42,6 +45,7 @@
         text-align: center;
         text-transform: uppercase;
       }
+
       .dialog-heading {
         padding: 0;
         margin: 0;
@@ -49,9 +53,11 @@
         line-height: 3em;
         font-size: 1.5em;
       }
+
       .text-label {
         margin-left: 1em;
       }
+
       #close-button {
         position: fixed;
         right: 9%;
@@ -77,6 +83,7 @@
       <paper-tooltip for="dialog-trigger" animation-delay="0">[[alt]]</paper-tooltip>
     </template>
     <paper-dialog modal="[[modal]]" id="dialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
+      <!--START TOOLBAR TO DIALOG -->
       <lrnsys-dialog-toolbar on-button-clicked="_toolbarButtonClickedHandler">
         <span slot="primary">
             <slot name="toolbar-primary"></slot>
@@ -85,6 +92,7 @@
             <slot name="toolbar-secondary"></slot>
         </span>
       </lrnsys-dialog-toolbar>
+      <!--END TOOLBAR TO DIALOG -->
       <div class="dialog-header">
         <slot name="header"></slot>
         <template is="dom-if" if="[[header]]">
@@ -190,11 +198,11 @@
        * Handle a focus/tap event and add the hoverclasses
        * to the classList array for paper-button.
        */
-      tapEventOn: function(e) {
+      tapEventOn: function (e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
-          classes.forEach(function(item, index) {
+          classes.forEach(function (item, index) {
             if (item != '') {
               root.$$('#dialog-trigger').classList.add(item);
             }
@@ -205,11 +213,11 @@
        * Handle a mouse out event and remove the hoverclasses
        * from the classList array for paper-button.
        */
-      tapEventOff: function(e) {
+      tapEventOff: function (e) {
         let root = this;
         if (typeof root.hoverClass !== typeof undefined) {
           var classes = root.hoverClass.split(' ');
-          classes.forEach(function(item, index) {
+          classes.forEach(function (item, index) {
             if (item != '') {
               root.$$('#dialog-trigger').classList.remove(item);
             }
@@ -219,13 +227,13 @@
       /**
        * Toggle the drawer to open / close.
        */
-      toggleDialog: function() {
+      toggleDialog: function () {
         let root = this;
         // support for loading iron-images dynamically
         if (root.dynamicImages) {
           var images = root.$.dialogcontent.getElementsByTagName("IRON-IMAGE");
           // make sure these are
-          for (var i=0; i<images.length; i++) {
+          for (var i = 0; i < images.length; i++) {
             images[i].preventLoad = false;
           }
         }
@@ -238,15 +246,15 @@
       /**
        * Handle toggle for mouse class and manage classList array for paper-button.
        */
-      focusToggle: function(e) {
+      focusToggle: function (e) {
         let root = this;
-        this.fire('focus-changed', {focus: root.focusState});
+        this.fire('focus-changed', { focus: root.focusState });
         // see if it has hover classes
         if (typeof root.hoverClass !== typeof undefined) {
           // break class into array
           var classes = root.hoverClass.split(' ');
           // run through each and add or remove classes
-          classes.forEach(function(item, index) {
+          classes.forEach(function (item, index) {
             if (item != '') {
               if (root.focusState) {
                 root.$$('#dialog-trigger').classList.add(item);
@@ -264,7 +272,19 @@
           this.toggleDialog();
         }
         this.fire('toolbar-button-clicked', e.detail);
+      },
+
+      ready: function () {
+        const dialog = this.$$('paper-dialog');
+        const toolbar = this.$$('lrnsys-dialog-toolbar');
+        dialog.addEventListener('mouseover', (e) => {
+          toolbar.setAttribute('secondary-visible', true);
+        });
+        dialog.addEventListener('mouseout', (e) => {
+          toolbar.removeAttribute('secondary-visible');
+        })
       }
+
     });
   </script>
 </dom-module>
